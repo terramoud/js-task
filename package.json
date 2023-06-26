@@ -1,0 +1,14 @@
+{
+  "name": "js-task",
+  "version": "1.0.0",
+  "description": "",
+  "main": "task1/src/js/js_practical_task.js",
+  "scripts": {
+    "test": "mocha task1/test/*.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "mocha": "^10.2.0"
+  }
+}
