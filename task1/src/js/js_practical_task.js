@@ -56,7 +56,9 @@ function toBase2Converter(decimal) {
  *      'T', 'test it' -> 2
  */
 function substringOccurrencesCounter(substring, text) {
-
+    const regex = new RegExp(substring.toLowerCase(), "gi");
+    const matches = text.toLowerCase().match(regex);
+    return matches ? matches.length : 0;
 }
 
 /**
@@ -70,7 +72,15 @@ function substringOccurrencesCounter(substring, text) {
  *      "Hello world" -> "HHeello  wworrldd" // o, l is repeated more then once. Space was also repeated
  */
 function repeatingLitters(string) {
-
+    let repeatedString = "";
+    const arraySymbols = string.split("");
+    for (let char of arraySymbols) {
+        repeatedString += char;
+        if (arraySymbols.indexOf(char) === arraySymbols.lastIndexOf(char)) {
+            repeatedString += char;
+        }
+    }
+    return repeatedString;
 }
 
 /**
@@ -91,7 +101,9 @@ function repeatingLitters(string) {
  *      f3() ➞ ""
  */
 function redundant(str) {
-
+    return function() {
+        return str;
+    };
 }
 
 /**
@@ -101,7 +113,7 @@ function redundant(str) {
  * @return {number}
  */
 function towerHanoi(disks) {
-
+    return Math.pow(2, disks) - 1;
 }
 
 /**
@@ -113,7 +125,21 @@ function towerHanoi(disks) {
  *
  */
 function matrixMultiplication(matrix1, matrix2) {
-
+    const matrix1Height = matrix1.length;
+    const matrix2Height = matrix2.length;
+    const matrix2Width = matrix2[0].length;
+    const result = [];
+    for (let i = 0; i < matrix1Height; i++) {
+        result[i] = [];
+        for (let j = 0; j < matrix2Width; j++) {
+            let sum = 0;
+            for (let k = 0; k < matrix2Height; k++) {
+                sum += matrix1[i][k] * matrix2[k][j];
+            }
+            result[i][j] = sum;
+        }
+    }
+    return result;
 }
 
 /**
@@ -132,7 +158,25 @@ function matrixMultiplication(matrix1, matrix2) {
  *      gather("e")("l")("o")("l")("!")("h").order(5)(0)(1)(3)(2)(4).get()  ➞ "hello"
  */
 function gather(str) {
+    let chars = [str];
+    let result = "";
 
+    function nextChain(arg) {
+        chars.push(arg);
+        return nextChain;
+    }
+
+    function order(index) {
+        result += chars[index];
+        return order;
+    }
+
+    function get() {
+        return result;
+    }
+    order.get = get;
+    nextChain.order = order;
+    return nextChain;
 }
 
 module.exports = {
